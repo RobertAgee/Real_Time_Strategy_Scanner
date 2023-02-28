@@ -26,7 +26,13 @@
 
 This comes with a default EMA50/200 crossover strategy.  I'd suggest replacing it with a strategy of your choice instead.  This scanner is useful for doing visual market research to identify correlations or as an informal backtest for a strategy you are developing.  For more mature strategies, a Tradingview alert can send a list of signalled entries for your review.
 
+## Recently Added
+
+Sell Signal support
+Titled outputs
+Candle buy/sell markers with user-specified colors
+Due to Tradingview output limits, 40 symbols reduced to 32
+
 ## Future Features
 
-Sell Signal Support
 Switch Case Strategies
