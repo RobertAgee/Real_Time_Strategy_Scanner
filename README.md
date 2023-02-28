@@ -1,6 +1,6 @@
 # Real-Time Strategy Scanner 
 
-## Run 1 strategy on up to 40 different user-specified symbols
+## Run 1 strategy on up to 32 different user-specified symbols
 
 <img src="https://s3.tradingview.com/snapshots/w/W5hf0Xwe.png"></img>
 
