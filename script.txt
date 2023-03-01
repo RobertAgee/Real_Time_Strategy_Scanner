@@ -11,6 +11,7 @@ showHLines = input.bool(true, 'Show Horizontal Lines?')
 showVLines = input.bool(false, 'Show Candle Entries/Exits?')
 bColor = input.color(color.new(color.green, 25), 'Buy Color')
 sColor = input.color(color.new(color.red, 25), 'Sell Color')
+preset = input.string("Custom", "Scanner Presets", options = ["Custom", "Stocks", "Forex", "Cryptos", "Sectors/Commodities"])
 
 sym1 = syminfo.ticker
 sym2 = input("GOOG", "Sym2")
@@ -21,8 +22,8 @@ sym6 = input("ADM", "Sym6")
 sym7 = input("M", "Sym7")
 sym8 = input("MSTR", "Sym8")
 sym9 = input("GME", "Sym9")
-sym10 = input("CIS", "Sym10")
-
+sym10 = input("CSCO", "Sym10")
+    
 sym11 = input("DOW", "Sym11")
 sym12 = input("PFE", "Sym12")
 sym13 = input("BTCUSD", "Sym13")
@@ -33,7 +34,7 @@ sym17 = input("NFLX", "Sym17")
 sym18 = input("MSFT", "Sym18")
 sym19 = input("AMZN", "Sym19")
 sym20 = input("WIRE", "Sym20")
-
+    
 sym21 = input("LAC", "Sym21")
 sym22 = input("SP", "Sym22")
 sym23 = input("SCHW", "Sym23")
@@ -44,7 +45,7 @@ sym27 = input("LMT", "Sym27")
 sym28 = input("PM", "Sym28")
 sym29 = input("LLY", "Sym29")
 sym30 = input("ROKU", "Sym30")
-
+    
 sym31 = input("CVS", "Sym31")
 sym32 = input("FFIN", "Sym32")
 // sym33 = input("F", "Sym33")
@@ -55,6 +56,182 @@ sym32 = input("FFIN", "Sym32")
 // sym38 = input("GILD", "Sym38")
 // sym39 = input("HD", "Sym39")
 // sym40 = input("INTC", "Sym40")
+
+if(preset == "Stocks")
+    sym2 := "GOOG"
+    sym3 := "AAPL"
+    sym4 := "JPM"
+    sym5 := "BA"
+    sym6 := "ADM"
+    sym7 := "M"
+    sym8 := "MSTR"
+    sym9 := "GME"
+    sym10 := "TSLA"
+    
+    sym11 := "DOW"
+    sym12 := "PFE"
+    sym13 := "SEE"
+    sym14 := "COST"
+    sym15 := "COP"
+    sym16 := "MMM"
+    sym17 := "NFLX"
+    sym18 := "MSFT"
+    sym19 := "AMZN"
+    sym20 := "WIRE"
+    
+    sym21 := "LAC"
+    sym22 := "SP"
+    sym23 := "SCHW"
+    sym24 := "TMO"
+    sym25 := "NEE"
+    sym26 := "PEP"
+    sym27 := "LMT"
+    sym28 := "PM"
+    sym29 := "LLY"
+    sym30 := "ROKU"
+    
+    sym31 := "CVS"
+    sym32 := "FFIN"
+    // sym33 := "F"
+    // sym34 := "CAT"
+    // sym35 := "BA"
+    // sym36 := "AVGO"
+    // sym37 := "BAC"
+    // sym38 := "GILD"
+    // sym39 := "HD"
+    // sym40 := "INTC"
+
+if(preset == "Cryptos")
+    sym2 := "BTCUSDT"
+    sym3 := "ETHUSDT"
+    sym4 := "XMRUSDT"
+    sym5 := "DOTUSDT"
+    sym6 := "ADAUSDT"
+    sym7 := "SOLUSDT"
+    sym8 := "FXSUSDT"
+    sym9 := "QNTUSDT"
+    sym10 := "VETUSDT"
+    
+    sym11 := "LTCUSDT"
+    sym12 := "KCSUSDT"
+    sym13 := "MATICUSDT"
+    sym14 := "DOGEUSDT"
+    sym15 := "XRPUSDT"
+    sym16 := "BNBUSDT"
+    sym17 := "EOSUSDT"
+    sym18 := "TRXUSDT"
+    sym19 := "AKROUSDT"
+    sym20 := "APTUSDT"
+    
+    sym21 := "FTMUSDT"
+    sym22 := "TONUSDT"
+    sym23 := "FILUSDT"
+    sym24 := "AVAXUSDT"
+    sym25 := "GRTUSDT"
+    sym26 := "LINKUSDT"
+    sym27 := "HBARUSDT"
+    sym28 := "NEARUSDT"
+    sym29 := "OCEANUSDT"
+    sym30 := "ALGOUSDT"
+    
+    sym31 := "MANAUSDT"
+    sym32 := "THETAUSDT"
+    // sym33 := "APEUSDT"
+    // sym34 := "UNIUSDT"
+    // sym35 := "SHIBUSDT"
+    // sym36 := "LDOUSDT"
+    // sym37 := "CROUSDT"
+    // sym38 := "OPUSDT"
+    // sym39 := "XLMUSDT"
+    // sym40 := "ATOMUSDT"
+
+if(preset == "Forex")
+    sym2 := "EURUSD"
+    sym3 := "JPYUSD"
+    sym4 := "MXNUSD"
+    sym5 := "GBPUSD"
+    sym6 := "NZDUSD"
+    sym7 := "AUDUSD"
+    sym8 := "TRYUSD"
+    sym9 := "CADUSD"
+    sym10 := "CNHUSD"
+    
+    sym11 := "CHFUSD"
+    sym12 := "DKKUSD"
+    sym13 := "HKDUSD"
+    sym14 := "HUFUSD"
+    sym15 := "NOKUSD"
+    sym16 := "PLNUSD"
+    sym17 := "SEKUSD"
+    sym18 := "SGDUSD"
+    sym19 := "CZKUSD"
+    sym20 := "GBPEUR"
+    
+    sym21 := "NZDEUR"
+    sym22 := "CADEUR"
+    sym23 := "JPYEUR"
+    sym24 := "MXNEUR"
+    sym25 := "HKDEUR"
+    sym26 := "PLNEUR"
+    sym27 := "CHFEUR"
+    sym28 := "AUDEUR"
+    sym29 := "MXNCAD"
+    sym30 := "JPYCAD"
+    
+    sym31 := "NZDCAD"
+    sym32 := "CHFCAD"
+    // sym33 := "HKDCAD"
+    // sym34 := "GBPCAD"
+    // sym35 := "AUDCAD"
+    // sym36 := "JPYHKD"
+    // sym37 := "GBPHKD"
+    // sym38 := "MXNHKD"
+    // sym39 := "NZDHKD"
+    // sym40 := "AUDHKD"
+
+if(preset == "Sectors/Commodities")
+    sym2 := "XAUUSD"
+    sym3 := "XAGUSD"
+    sym4 := "XPTUSD"
+    sym5 := "XPDUSD"
+    sym6 := "XLB"
+    sym7 := "XLC"
+    sym8 := "XLE"
+    sym9 := "XLF"
+    sym10 := "XLI"
+    
+    sym11 := "XLK"
+    sym12 := "XLP"
+    sym13 := "XLU"
+    sym14 := "XLV"
+    sym15 := "XLY"
+    sym16 := "XES"
+    sym17 := "XHB"
+    sym18 := "NQCILHTR"
+    sym19 := "DJCISB"
+    sym20 := "DJCIGR"
+    
+    sym21 := "NQCIWER"
+    sym22 := "NQCISNER"
+    sym23 := "NQCISER"
+    sym24 := "NQCICER"
+    sym25 := "DJCICC"
+    sym26 := "DJCIKC"
+    sym27 := "DJCIEN"
+    sym28 := "NQCIHOER"
+    sym29 := "NQCINGER"
+    sym30 := "NQCILHTR"
+    
+    sym31 := "NQCILCER"
+    sym32 := "DJCIIK"
+    // sym33 := "XLP"
+    // sym34 := "XLRE"
+    // sym35 := "XLU"
+    // sym36 := "XLV"
+    // sym37 := "XLY"
+    // sym38 := "XBI"
+    // sym39 := "XES"
+    // sym40 := "XHB"
 
 
 // methods
@@ -127,290 +304,290 @@ drawVerticalSellLine(offset, lineColor) =>
 // [ss40, bCondition40, sCondition40] = request.security(sym40, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
 
 // draw labels
-hline((showHLines == true) ? 0.1 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 5 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 10 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 15 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 20 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 25 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 30 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 35 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 40 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 45 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 50 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 55 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 60 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 65 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 70 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 75 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 80 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 85 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 90 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 95 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 100 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 105 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 110 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 115 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 120 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 125 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 130 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 135 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 140 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 145 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 150 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 155 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 160 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 165 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 170 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 175 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 180 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 185 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 190 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-// hline((showHLines == true) ? 195 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 195 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 190 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 185 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 180 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 175 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 170 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 165 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 160 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 155 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 150 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 145 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 140 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 135 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 130 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 125 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 120 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 115 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 110 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 105 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 100 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 95 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 90 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 85 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 80 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 75 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 70 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 65 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 60 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 55 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 50 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 45 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 40 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 35 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 30 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 25 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 20 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 15 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 10 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 5 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+// hline((showHLines == true) ? 0.1 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
 
 if(showLabels == true)
-    label1 = label.new(bar_index+5, 0.1, text=string(sym1), style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label1 = label.new(bar_index+5, 195, text=sym1, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label1[1])
-    label2 = label.new(bar_index+5, 5, text=string(sym2), style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label2 = label.new(bar_index+5, 190, text=sym2, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label2[1])
-    label3 = label.new(bar_index+5, 10, text=string(sym3), style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label3 = label.new(bar_index+5, 185, text=sym3, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label3[1])
-    label4 = label.new(bar_index+5, 15, text=string(sym4), style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label4 = label.new(bar_index+5, 180, text=sym4, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label4[1])
-    label5 = label.new(bar_index+5, 20, text=string(sym5), style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label5 = label.new(bar_index+5, 175, text=sym5, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label5[1])
-    label6 = label.new(bar_index+5, 25, text=string(sym6), style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label6 = label.new(bar_index+5, 170, text=sym6, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label6[1])
-    label7 = label.new(bar_index+5, 30, text=string(sym7), style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label7 = label.new(bar_index+5, 165, text=sym7, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label7[1])
-    label8 = label.new(bar_index+5, 35, text=string(sym8), style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label8 = label.new(bar_index+5, 160, text=sym8, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label8[1])
-    label9 = label.new(bar_index+5, 40, text=string(sym9), style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label9 = label.new(bar_index+5, 155, text=sym9, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label9[1])
-    label10 = label.new(bar_index+5, 45, text=string(sym10), style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label10 = label.new(bar_index+5, 150, text=sym10, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label10[1])
-    label11 = label.new(bar_index+5, 50, text=string(sym11), style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label11 = label.new(bar_index+5, 145, text=sym11, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label11[1])
-    label12 = label.new(bar_index+5, 55, text=string(sym12), style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label12 = label.new(bar_index+5, 140, text=sym12, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label12[1])
-    label13 = label.new(bar_index+5, 60, text=string(sym13), style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label13 = label.new(bar_index+5, 135, text=sym13, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label13[1])
-    label14 = label.new(bar_index+5, 65, text=string(sym14), style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label14 = label.new(bar_index+5, 130, text=sym14, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label14[1])
-    label15 = label.new(bar_index+5, 70, text=string(sym15), style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label15 = label.new(bar_index+5, 125, text=sym15, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label15[1])
-    label16 = label.new(bar_index+5, 75, text=string(sym16), style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label16 = label.new(bar_index+5, 120, text=sym16, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label16[1])
-    label17 = label.new(bar_index+5, 80, text=string(sym17), style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label17 = label.new(bar_index+5, 115, text=sym17, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label17[1])
-    label18 = label.new(bar_index+5, 85, text=string(sym18), style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label18 = label.new(bar_index+5, 110, text=sym18, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label18[1])
-    label19 = label.new(bar_index+5, 90, text=string(sym19), style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label19 = label.new(bar_index+5, 105, text=sym19, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label19[1])
-    label20 = label.new(bar_index+5, 95, text=string(sym20), style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label20 = label.new(bar_index+5, 100, text=sym20, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label20[1])
-    label21 = label.new(bar_index+5, 100, text=string(sym21), style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label21 = label.new(bar_index+5, 95, text=sym21, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label21[1])
-    label22 = label.new(bar_index+5, 105, text=string(sym22), style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label22 = label.new(bar_index+5, 90, text=sym22, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label22[1])
-    label23 = label.new(bar_index+5, 110, text=string(sym23), style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label23 = label.new(bar_index+5, 85, text=sym23, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label23[1])
-    label24 = label.new(bar_index+5, 115, text=string(sym24), style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label24 = label.new(bar_index+5, 80, text=sym24, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label24[1])
-    label25 = label.new(bar_index+5, 120, text=string(sym25), style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label25 = label.new(bar_index+5, 75, text=sym25, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label25[1])
-    label26 = label.new(bar_index+5, 125, text=string(sym26), style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label26 = label.new(bar_index+5, 70, text=sym26, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label26[1])
-    label27 = label.new(bar_index+5, 130, text=string(sym27), style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label27 = label.new(bar_index+5, 65, text=sym27, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label27[1])
-    label28 = label.new(bar_index+5, 135, text=string(sym28), style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label28 = label.new(bar_index+5, 60, text=sym28, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label28[1])
-    label29 = label.new(bar_index+5, 140, text=string(sym29), style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label29 = label.new(bar_index+5, 55, text=sym29, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label29[1])
-    label30 = label.new(bar_index+5, 145, text=string(sym30), style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label30 = label.new(bar_index+5, 50, text=sym30, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label30[1])
-    label31 = label.new(bar_index+5, 150, text=string(sym31), style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label31 = label.new(bar_index+5, 45, text=sym31, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label31[1])
-    label32 = label.new(bar_index+5, 155, text=string(sym32), style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label32 = label.new(bar_index+5, 40, text=sym32, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     label.delete(label32[1])
-    // label33 = label.new(bar_index+5, 160, text=string(sym33), style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label33 = label.new(bar_index+5, 35, text=sym33, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label33[1])
-    // label34 = label.new(bar_index+5, 165, text=string(sym34), style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label34 = label.new(bar_index+5, 30, text=sym34, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label34[1])
-    // label35 = label.new(bar_index+5, 170, text=string(sym35), style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label35 = label.new(bar_index+5, 25, text=sym35, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label35[1])
-    // label36 = label.new(bar_index+5, 175, text=string(sym36), style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label36 = label.new(bar_index+5, 20, text=sym36, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label36[1])
-    // label37 = label.new(bar_index+5, 180, text=string(sym37), style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label37 = label.new(bar_index+5, 15, text=sym37, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label37[1])
-    // label38 = label.new(bar_index+5, 185, text=string(sym38), style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label38 = label.new(bar_index+5, 10, text=sym38, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label38[1])
-    // label39 = label.new(bar_index+5, 190, text=string(sym39), style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label39 = label.new(bar_index+5, 5, text=sym39, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label39[1])
-    // label40 = label.new(bar_index+5, 195, text=string(sym40), style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    // label40 = label.new(bar_index+5, 0.1, text=sym40, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
     // label.delete(label40[1])
 
 // plot shapes
-plotshape((showShapes == true) ? (bCondition1*0.1) : na, title="Buy Sym1", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition1*195) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition2*5) : na, title="Buy Sym2", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition2*190) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition3*10) : na, title="Buy Sym3", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition3*185) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition4*15) : na, title="Buy Sym4", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition4*180) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition5*20) : na, title="Buy Sym5", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition5*175) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition6*25) : na, title="Buy Sym6", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition6*170) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition7*30) : na, title="Buy Sym7", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition7*165) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition8*35) : na, title="Buy Sym8", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition8*160) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition9*40) : na, title="Buy Sym9", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition9*155) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition10*45) : na, title="Buy Sym10", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition10*150) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition11*50) : na, title="Buy Sym11", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition11*145) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition12*55) : na, title="Buy Sym12", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition12*140) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition13*60) : na, title="Buy Sym13", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition13*135) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition14*65) : na, title="Buy Sym14", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition14*130) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition15*70) : na, title="Buy Sym15", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition15*125) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.green, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition16*75) : na, title="Buy Sym16", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition16*120) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition17*80) : na, title="Buy Sym17", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition17*115) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition18*85) : na, title="Buy Sym18", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition18*110) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition19*90) : na, title="Buy Sym19", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition19*105) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition20*95) : na, title="Buy Sym20", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition20*100) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition21*100) : na, title="Buy Sym21", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition21*95) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition22*105) : na, title="Buy Sym22", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition22*90) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition23*110) : na, title="Buy Sym23", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition23*85) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition24*115) : na, title="Buy Sym24", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition24*80) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition25*120) : na, title="Buy Sym25", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition25*75) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition26*125) : na, title="Buy Sym26", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition26*70) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition27*130) : na, title="Buy Sym27", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition27*65) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition28*135) : na, title="Buy Sym28", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition28*60) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showShapes == true) ? (bCondition29*140) : na, title="Buy Sym29", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition29*55) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition30*145) : na, title="Buy Sym30", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition30*50) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition31*150) : na, title="Buy Sym31", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition31*45) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showShapes == true) ? (bCondition32*155) : na, title="Buy Sym32", style=shape.circle,
+plotshape((showShapes == true) ? (bCondition32*40) : na, title="Buy", style=shape.circle,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-// plotshape((showShapes == true) ? (bCondition33*160) : na, title="Buy Sym33", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition33*35) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-// plotshape((showShapes == true) ? (bCondition34*165) : na, title="Buy Sym34", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition34*30) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-// plotshape((showShapes == true) ? (bCondition35*170) : na, title="Buy Sym35", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition35*25) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-// plotshape((showShapes == true) ? (bCondition36*175) : na, title="Buy Sym36", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition36*20) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-// plotshape((showShapes == true) ? (bCondition37*180) : na, title="Buy Sym37", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition37*15) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-// plotshape((showShapes == true) ? (bCondition38*185) : na, title="Buy Sym38", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition38*10) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-// plotshape((showShapes == true) ? (bCondition39*190) : na, title="Buy Sym39", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition39*5) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-// plotshape((showShapes == true) ? (bCondition40*195) : na, title="Buy Sym40", style=shape.circle,
+// plotshape((showShapes == true) ? (bCondition40*0.1) : na, title="Buy", style=shape.circle,
 //                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
 
-plotshape((showShapes == true) ? (sCondition1*0.1) : na, title="Sell Sym1", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition1*195) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition2*5) : na, title="Sell Sym2", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition2*190) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition3*10) : na, title="Sell Sym3", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition3*185) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition4*15) : na, title="Sell Sym4", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition4*180) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition5*20) : na, title="Sell Sym5", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition5*175) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition6*25) : na, title="Sell Sym6", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition6*170) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition7*30) : na, title="Sell Sym7", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition7*165) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition8*35) : na, title="Sell Sym8", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition8*160) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition9*40) : na, title="Sell Sym9", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition9*155) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition10*45) : na, title="Sell Sym10", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition10*150) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition11*50) : na, title="Sell Sym11", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition11*145) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition12*55) : na, title="Sell Sy12m", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition12*140) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition13*60) : na, title="Sell Sym13", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition13*135) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition14*65) : na, title="Sell Sym14", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition14*130) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition15*70) : na, title="Sell Sym15", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition15*125) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.green, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition16*75) : na, title="Sell Sym16", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition16*120) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition17*80) : na, title="Sell Sym17", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition17*115) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition18*85) : na, title="Sell Sym18", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition18*110) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition19*90) : na, title="Sell Sym19", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition19*105) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition20*95) : na, title="Sell Sym20", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition20*100) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition21*100) : na, title="Sell Sym21", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition21*95) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition22*105) : na, title="Sell Sym22", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition22*90) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition23*110) : na, title="Sell Sym23", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition23*85) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition24*115) : na, title="Sell Sym24", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition24*80) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition25*120) : na, title="Sell Sym25", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition25*75) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition26*125) : na, title="Sell Sym26", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition26*70) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition27*130) : na, title="Sell Sym27", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition27*65) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition28*135) : na, title="Sell Sym28", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition28*60) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showShapes == true) ? (sCondition29*140) : na, title="Sell Sym29", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition29*55) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition30*145) : na, title="Sell Sym30", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition30*50) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition31*150) : na, title="Sell Sym31", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition31*45) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showShapes == true) ? (sCondition32*155) : na, title="Sell Sym32", style=shape.xcross,
+plotshape((showShapes == true) ? (sCondition32*40) : na, title="Buy", style=shape.xcross,
                  location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-// plotshape((showShapes == true) ? (sCondition33*160) : na, title="Sell Sym33", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition33*35) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-// plotshape((showShapes == true) ? (sCondition34*165) : na, title="Sell Sym34", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition34*30) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-// plotshape((showShapes == true) ? (sCondition35*170) : na, title="Sell Sym35", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition35*25) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-// plotshape((showShapes == true) ? (sCondition36*175) : na, title="Sell Sym36", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition36*20) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-// plotshape((showShapes == true) ? (sCondition37*180) : na, title="Sell Sym37", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition37*15) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-// plotshape((showShapes == true) ? (sCondition38*185) : na, title="Sell Sym38", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition38*10) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-// plotshape((showShapes == true) ? (sCondition39*190) : na, title="Sell Sym39", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition39*5) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-// plotshape((showShapes == true) ? (sCondition40*195) : na, title="Sell Sym40", style=shape.xcross,
+// plotshape((showShapes == true) ? (sCondition40*0.1) : na, title="Buy", style=shape.xcross,
 //                  location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
 
 // plot vertical entry lines
