@@ -31,7 +31,7 @@ This comes with a default EMA50/200 crossover strategy.  I'd suggest replacing i
 Sell Signal support
 Titled outputs
 Candle buy/sell markers with user-specified colors
-Due to Tradingview output limits, 40 symbols reduced to 32
+Added presets for Stocks, Forex, Cryptos, Sectors/Commodities
 
 ## Future Features
 
