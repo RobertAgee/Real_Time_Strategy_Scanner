@@ -1,38 +1,50 @@
 # Real-Time Strategy Scanner 
 
-## Run 1 strategy on up to 32 different user-specified symbols
+## Run 1 strategy on up to 32 different user-specified symbols in real-time
 
-<img src="https://s3.tradingview.com/snapshots/w/W5hf0Xwe.png"></img>
+<img src="https://s3.tradingview.com/snapshots/t/tgY0WwC2.png"></img>
 
-<img src="https://i.imgur.com/5EdG2x7.png"></img>
+## Customize the look and layout
 
-## Visualize correlations across diverse markets.
+<img src="https://i.imgur.com/buCj2mV.png"></img>
+
+## Visualize correlations across diverse markets
 
 <img src="https://s3.tradingview.com/snapshots/n/NgANsKiC.png"></img>
 
-## Instantly see where the entries would be.
+## Instantly see where the entries and exits would be
 
-<img src="https://s3.tradingview.com/snapshots/n/nmFqcXjt.png"></img>
+<img src="https://s3.tradingview.com/snapshots/u/upidAdrk.png"></img>
 
-## Receive a list of Buy suggestions in real-time.  
+## Receive a list of Buy and Sell suggestions in real-time.  
 
 <img src="https://i.imgur.com/KBOWC9v.png"></img>
 
-<img src="https://i.imgur.com/P2czHtb.jpg"></img>
+<img src="https://i.imgur.com/P2czHtb.jpg"></img>![image](https://user-images.githubusercontent.com/53241405/222933722-2778199b-9257-4cd3-b901-ce324f032a44.png)
+
 
 <img src="https://s3.tradingview.com/snapshots/h/h57kaOkI.png"></img>
 
 ## Notes
 
-This comes with a default EMA50/200 crossover strategy.  I'd suggest replacing it with a strategy of your choice instead.  This scanner is useful for doing visual market research to identify correlations or as an informal backtest for a strategy you are developing.  For more mature strategies, a Tradingview alert can send a list of signalled entries for your review.
+This scanner is useful for doing visual market research to identify correlations or as an informal backtest for a strategy you are developing.  For more mature strategies, a Tradingview alert can send a list of signalled entries and exits for your review.  Scanner comes with a few preset strategies, but I encourage adding a strategy(ies) of your own.
 
 ## Recently Added
 
 Sell Signal support
+
 Titled outputs
+
 Candle buy/sell markers with user-specified colors
+
 Added presets for Stocks, Forex, Cryptos, Sectors/Commodities
 
-## Future Features
+Preset strategies including Golden/Death Crosses, +/- 5% in One Candle
 
-Switch Case Strategies
+## Planned Features
+
+S&P 100 Preset List
+
+More preset strategies
+
+Automated individual JSON alerts for webhook trading servers
