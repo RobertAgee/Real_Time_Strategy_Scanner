@@ -9,6 +9,7 @@ showLabels = input.bool(true, 'Show Symbol Labels?')
 showShapes = input.bool(true, 'Show Shape Entries/Exits?')
 showHLines = input.bool(true, 'Show Horizontal Lines?')
 showVLines = input.bool(false, 'Show Candle Entries/Exits?')
+myStrategy = input.string("Golden/Death Cross", "Strategy", options = ["Golden/Death Cross", "+/- 5% in One Candle"])
 bColor = input.color(color.new(color.green, 25), 'Buy Color')
 sColor = input.color(color.new(color.red, 25), 'Sell Color')
 preset = input.string("Custom", "Scanner Presets", options = ["Custom", "Stocks", "Forex", "Cryptos", "Sectors/Commodities"])
@@ -235,22 +236,33 @@ if(preset == "Sectors/Commodities")
 
 
 // methods
-myStrategy(_src) => 
+myStrategy(_src, _myStrategy) => 
     
-    ema20 = ta.ema(_src, 20)
-    ema50 = ta.ema(_src, 50)
-    ema200 = ta.ema(_src, 200)
+    if(_myStrategy == "Golden/Death Cross")
+        ema50 = ta.ema(_src, 50)
+        ema200 = ta.ema(_src, 200)
 
-    bCondition = if(ta.crossover(ema20, ema50) and ema50 > ema200)
-        1
-    else
-        na
-    sCondition = if(ta.crossunder(ema20, ema50) and ema50 > ema200)
-        1
-    else
-        na
-    
-    [ema50, bCondition, sCondition]
+        bCondition = if(ta.crossover(ema50, ema200))
+            1
+        else
+            na
+        sCondition = if(ta.crossunder(ema50, ema200))
+            1
+        else
+            na
+        
+        [ema50, bCondition, sCondition]
+    else if(_myStrategy == "+/- 5% in One Candle")
+        bCondition = if(close <= 0.95*close[1])
+            1
+        else
+            na
+        sCondition = if(close[1] <= 0.95*close)
+            1
+        else
+            na
+        
+        [_src, bCondition, sCondition]
 
 drawVerticalBuyLine(offset, lineColor) =>
     line.new(bar_index[offset], low*0.7, bar_index[offset], high, color=lineColor, width=3)
@@ -259,49 +271,49 @@ drawVerticalSellLine(offset, lineColor) =>
     line.new(bar_index[offset], low, bar_index[offset], high/0.7, color=lineColor, width=3)
 
 // request analysis on symbols
-[ss1, bCondition1, sCondition1] = request.security(sym1, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss2, bCondition2, sCondition2] = request.security(sym2, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss3, bCondition3, sCondition3] = request.security(sym3, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss4, bCondition4, sCondition4] = request.security(sym4, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss5, bCondition5, sCondition5] = request.security(sym5, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss6, bCondition6, sCondition6] = request.security(sym6, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss7, bCondition7, sCondition7] = request.security(sym7, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss8, bCondition8, sCondition8] = request.security(sym8, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss9, bCondition9, sCondition9] = request.security(sym9, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss10, bCondition10, sCondition10] = request.security(sym10, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
+[ss1, bCondition1, sCondition1] = request.security(sym1, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss2, bCondition2, sCondition2] = request.security(sym2, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss3, bCondition3, sCondition3] = request.security(sym3, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss4, bCondition4, sCondition4] = request.security(sym4, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss5, bCondition5, sCondition5] = request.security(sym5, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss6, bCondition6, sCondition6] = request.security(sym6, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss7, bCondition7, sCondition7] = request.security(sym7, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss8, bCondition8, sCondition8] = request.security(sym8, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss9, bCondition9, sCondition9] = request.security(sym9, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss10, bCondition10, sCondition10] = request.security(sym10, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
 
-[ss11, bCondition11, sCondition11] = request.security(sym11, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss12, bCondition12, sCondition12] = request.security(sym12, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss13, bCondition13, sCondition13] = request.security(sym13, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss14, bCondition14, sCondition14] = request.security(sym14, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss15, bCondition15, sCondition15] = request.security(sym15, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss16, bCondition16, sCondition16] = request.security(sym16, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss17, bCondition17, sCondition17] = request.security(sym17, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss18, bCondition18, sCondition18] = request.security(sym18, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss19, bCondition19, sCondition19] = request.security(sym19, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss20, bCondition20, sCondition20] = request.security(sym20, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
+[ss11, bCondition11, sCondition11] = request.security(sym11, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss12, bCondition12, sCondition12] = request.security(sym12, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss13, bCondition13, sCondition13] = request.security(sym13, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss14, bCondition14, sCondition14] = request.security(sym14, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss15, bCondition15, sCondition15] = request.security(sym15, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss16, bCondition16, sCondition16] = request.security(sym16, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss17, bCondition17, sCondition17] = request.security(sym17, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss18, bCondition18, sCondition18] = request.security(sym18, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss19, bCondition19, sCondition19] = request.security(sym19, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss20, bCondition20, sCondition20] = request.security(sym20, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
 
-[ss21, bCondition21, sCondition21] = request.security(sym21, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss22, bCondition22, sCondition22] = request.security(sym22, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss23, bCondition23, sCondition23] = request.security(sym23, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss24, bCondition24, sCondition24] = request.security(sym24, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss25, bCondition25, sCondition25] = request.security(sym25, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss26, bCondition26, sCondition26] = request.security(sym26, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss27, bCondition27, sCondition27] = request.security(sym27, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss28, bCondition28, sCondition28] = request.security(sym28, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss29, bCondition29, sCondition29] = request.security(sym29, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
+[ss21, bCondition21, sCondition21] = request.security(sym21, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss22, bCondition22, sCondition22] = request.security(sym22, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss23, bCondition23, sCondition23] = request.security(sym23, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss24, bCondition24, sCondition24] = request.security(sym24, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss25, bCondition25, sCondition25] = request.security(sym25, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss26, bCondition26, sCondition26] = request.security(sym26, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss27, bCondition27, sCondition27] = request.security(sym27, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss28, bCondition28, sCondition28] = request.security(sym28, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss29, bCondition29, sCondition29] = request.security(sym29, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
 
-[ss30, bCondition30, sCondition30] = request.security(sym30, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss31, bCondition31, sCondition31] = request.security(sym31, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-[ss32, bCondition32, sCondition32] = request.security(sym32, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss33, bCondition33, sCondition33] = request.security(sym33, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss34, bCondition34, sCondition34] = request.security(sym34, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss35, bCondition35, sCondition35] = request.security(sym35, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss36, bCondition36, sCondition36] = request.security(sym36, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss37, bCondition37, sCondition37] = request.security(sym37, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss38, bCondition38, sCondition38] = request.security(sym38, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss39, bCondition39, sCondition39] = request.security(sym39, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
-// [ss40, bCondition40, sCondition40] = request.security(sym40, timeframe, myStrategy(close), barmerge.gaps_on, barmerge.lookahead_on)
+[ss30, bCondition30, sCondition30] = request.security(sym30, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss31, bCondition31, sCondition31] = request.security(sym31, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+[ss32, bCondition32, sCondition32] = request.security(sym32, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss33, bCondition33, sCondition33] = request.security(sym33, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss34, bCondition34, sCondition34] = request.security(sym34, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss35, bCondition35, sCondition35] = request.security(sym35, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss36, bCondition36, sCondition36] = request.security(sym36, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss37, bCondition37, sCondition37] = request.security(sym37, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss38, bCondition38, sCondition38] = request.security(sym38, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss39, bCondition39, sCondition39] = request.security(sym39, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
+// [ss40, bCondition40, sCondition40] = request.security(sym40, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
 
 // draw labels
 hline((showHLines == true) ? 195 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
