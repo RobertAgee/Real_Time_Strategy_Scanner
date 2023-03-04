@@ -20,10 +20,7 @@
 
 <img src="https://i.imgur.com/KBOWC9v.png"></img>
 
-<img src="https://i.imgur.com/P2czHtb.jpg"></img>![image](https://user-images.githubusercontent.com/53241405/222933722-2778199b-9257-4cd3-b901-ce324f032a44.png)
-
-
-<img src="https://s3.tradingview.com/snapshots/h/h57kaOkI.png"></img>
+<img src="https://i.imgur.com/P2czHtb.jpg"></img>
 
 ## Notes
 
