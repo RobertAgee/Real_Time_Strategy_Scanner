@@ -2,7 +2,7 @@
 
 ## Run 1 strategy on unlimited different user-specified symbols in real-time
 
-<img src="https://s3.tradingview.com/snapshots/t/tgY0WwC2.png"></img>
+<img src="https://s3.tradingview.com/snapshots/u/upidAdrk.png"></img>
 
 ## Customize the look and layout
 
