@@ -1,6 +1,6 @@
 # Real-Time Strategy Scanner 
 
-## Run 1 strategy on unlimited different user-specified symbols in real-time
+## Run 1 strategy on a user watchlist in real-time
 
 <img src="https://s3.tradingview.com/snapshots/u/upidAdrk.png"></img>
 
