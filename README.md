@@ -16,9 +16,9 @@
 
 <img src="https://s3.tradingview.com/snapshots/t/Tb31gtqF.png"></img>
 
-## Custom Watchlist and Webhook Orders
+## Customize Your Watchlist and Webhook Orders
 
-<img src="https://i.imgur.com/r6uGIZJ.png"></img>
+<img src="https://i.imgur.com/xSJdh0G.png"></img>
 
 ## Receive a list of Buy and Sell suggestions in real-time 
 
