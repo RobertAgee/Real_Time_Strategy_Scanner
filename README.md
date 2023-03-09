@@ -1,24 +1,28 @@
 # Real-Time Strategy Scanner 
 
-## Run 1 strategy on an unlimited number of symbols in real-time
+## Run 1 of many strategies on an unlimited number of symbols in real-time
 
-<img src="https://s3.tradingview.com/snapshots/u/upidAdrk.png"></img>
+<img src="https://s3.tradingview.com/snapshots/b/B3eXPFdh.png"></img>
 
 ## Customize the look and layout
 
-<img src="https://i.imgur.com/buCj2mV.png"></img>
+<img src="https://i.imgur.com/r6uGIZJ.png"></img>
 
 ## Visualize correlations across diverse markets
 
-<img src="https://s3.tradingview.com/snapshots/n/NgANsKiC.png"></img>
+<img src="https://s3.tradingview.com/snapshots/4/40LKm2up.png"></img>
 
 ## Instantly see where the entries and exits would be
 
-<img src="https://s3.tradingview.com/snapshots/u/upidAdrk.png"></img>
+<img src="https://s3.tradingview.com/snapshots/t/Tb31gtqF.png"></img>
+
+## Custom Watchlist and Webhook Orders
+
+<img src="https://i.imgur.com/r6uGIZJ.png"></img>
 
 ## Receive a list of Buy and Sell suggestions in real-time 
 
-<img src="https://i.imgur.com/KBOWC9v.png"></img>
+<img src="https://i.imgur.com/tdX2Xe2.png"></img>
 
 <img src="https://i.imgur.com/P2czHtb.jpg"></img>
 
@@ -26,7 +30,7 @@
 
 This scanner is useful for doing visual market research to identify correlations or as an informal backtest for a strategy you are developing.  For more mature strategies, a Tradingview alert can send a list of signalled entries and exits for your review.  Scanner comes with a few preset strategies, but I encourage adding a strategy(ies) of your own.
 
-Each preset list is limited to 32 symbols.  By setting an alert on each preset list, it is possible to watch an unlimited number of symbols for any strategy.
+Each preset list is limited to 30 symbols.  By setting an alert on each preset list, it is possible to watch an unlimited number of symbols for any strategy.
 
 ## Recent Developments
 
