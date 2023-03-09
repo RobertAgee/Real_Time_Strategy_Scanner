@@ -28,7 +28,7 @@ This scanner is useful for doing visual market research to identify correlations
 
 Each preset list is limited to 32 symbols.  By setting an alert on each preset list, it is possible to watch an unlimited number of symbols for any strategy.
 
-## Recently Added
+## Recent Developments
 
 Sell Signal support
 
@@ -36,14 +36,20 @@ Titled outputs
 
 Candle buy/sell markers with user-specified colors
 
-Added presets for Stocks, Forex, Cryptos, Sectors/Commodities
+Added presets for SP100, Forex, Cryptos, Sectors/Commodities, Custom
 
-Preset strategies including Golden/Death Crosses, +/- 5% in One Candle
+Preset strategies including Golden/Death Crosses, +/- 5% in One Candle, RVSI, Custom Strategy
+
+Added RVSI strategy to built-in strategies (Thanks to @fract on Tradingview!)
+
+Candle entry/exits are now plotchars
+
+Watchlist size now 30 symbols (max plot size)
+
+Individual Alerts w/ json order information
+
+Customizable order parameters
 
 ## Planned Features
 
-S&P 100 Preset List
-
-More preset strategies
-
-Automated individual JSON alerts for webhook trading servers
+Integrate strategy outputs into order parameters
