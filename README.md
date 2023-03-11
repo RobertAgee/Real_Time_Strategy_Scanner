@@ -8,15 +8,15 @@
 
 <img src="https://i.imgur.com/r6uGIZJ.png"></img>
 
-## Instantly see where the entries and exits would be
+## Instantly see historical long and short locations
 
 <img src="https://s3.tradingview.com/snapshots/t/Tb31gtqF.png"></img>
 
-## Visualize entry/exit correlations across diverse assets
+## Identify signal correlations across diverse assets
 
 <img src="https://s3.tradingview.com/snapshots/4/40LKm2up.png"></img>
 
-## Create your own watchlist and customize webhook orders
+## Create strategy watchlists and custom webhook orders
 
 <img src="https://i.imgur.com/xSJdh0G.png"></img>
 
@@ -42,7 +42,7 @@ Candle buy/sell markers with user-specified colors
 
 Added presets for SP100, Forex, Cryptos, Sectors/Commodities, Custom
 
-Preset strategies including:
+Preset strategies include:
 <ul>Golden/Death Crosses</ul>
 <ul>+/- 5% in One Candle</ul>
 <ul>Price Strength Index</ul>
