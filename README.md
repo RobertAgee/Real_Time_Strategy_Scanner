@@ -42,7 +42,12 @@ Candle buy/sell markers with user-specified colors
 
 Added presets for SP100, Forex, Cryptos, Sectors/Commodities, Custom
 
-Preset strategies including Golden/Death Crosses, +/- 5% in One Candle, RVSI, Custom Strategy
+Preset strategies including:
+<ul>Golden/Death Crosses</ul>
+<ul>+/- 5% in One Candle</ul>
+<ul>Price Strength Index</ul>
+<ul>Relative Volume Srength Index</ul> 
+<ul>Custom Strategies</ul>
 
 Added RVSI strategy to built-in strategies (Thanks to @fract on Tradingview!)
 
@@ -57,3 +62,5 @@ Customizable order parameters
 ## Planned Features
 
 Integrate strategy outputs into order parameters
+
+Add backtesting
