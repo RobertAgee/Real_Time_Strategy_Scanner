@@ -5,7 +5,7 @@
 indicator("Strategy Scanner")
 
 timeframe = input.timeframe('', 'Timeframe', group="Display Settings")
-myStrategy = input.string("myStrategy", "Strategy", options = ["Golden/Death Cross", "+/- 5% in One Candle", "Relative Volume Strength Index", "Stochastic Momentum Index", "myStrategy"], group="Display Settings")
+myStrategy = input.string("myStrategy", "Strategy", options = ["Golden/Death Cross", "+/- 5% in One Candle", "Price Strength Index", "Relative Volume Strength Index", "Stochastic Momentum Index", "myStrategy"], group="Display Settings")
 preset = input.string("Custom", "Watchlist", options = ["Custom", "SP100 AAPL-CSCO", "SP100 DHR-MCD", "SP100 MET-TXN", "Forex", "Cryptos", "Sectors/Commodities"], group="Display Settings")
 showLabels = input.bool(true, 'Show Symbol Labels', group="Display Settings")
 showBuyShapes = input.bool(true, 'Show Symbol Entries', group="Display Settings")
@@ -274,6 +274,7 @@ myStrategy(_src, _myStrategy) =>
             na
         
         [ema50, bCondition, sCondition]
+        
     else if(_myStrategy == "+/- 5% in One Candle")
         bCondition = if(close <= 0.95*close[1])
             1
@@ -286,8 +287,25 @@ myStrategy(_src, _myStrategy) =>
         
         [_src, bCondition, sCondition]
 
-    else if(_myStrategy == "Relative Volume Strength Index")
+    else if(_myStrategy == "Price Strength Index")
+        u = math.max(close - close[1], 0) // upward change
+        d = math.max(close[1] - close, 0) // downward change
+        rs = (ta.ema(u, 7) / ta.ema(d, 7))
+        res = (100 - 100 / (1 + rs))
+        PSI = (ta.hma(res, 56))
 
+        bCondition = if(ta.crossover((PSI-PSI[1]), 0))
+            1
+        else
+            na
+        sCondition = if(ta.crossunder((PSI-PSI[1]), 0))
+            1
+        else
+            na
+        
+        [PSI, bCondition, sCondition]
+
+    else if(_myStrategy == "Relative Volume Strength Index")
         nv = ta.cum((ta.change(close)) * volume)
         av = ta.ema(nv, 5)
         RVSI = ta.rsi(av, 10)
