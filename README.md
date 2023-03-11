@@ -63,4 +63,5 @@ Customizable order parameters
 
 Integrate strategy outputs into order parameters
 
-Add backtesting
+Backtest strategy performance
+
