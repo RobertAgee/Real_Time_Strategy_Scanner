@@ -57,7 +57,7 @@ Watchlist size now 30 symbols (max plot size)
 
 Individual Alerts w/ json order information
 
-Customizable order parameters
+Customizable alert message
 
 ## Planned Features
 
