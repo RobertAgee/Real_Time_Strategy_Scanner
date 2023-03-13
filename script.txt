@@ -6,22 +6,22 @@ indicator("Strategy Scanner")
 
 timeframe = input.timeframe('', 'Timeframe', group="Display Settings")
 myStrategy = input.string("myStrategy", "Strategy", options = ["Golden/Death Cross", "+/- 5% in One Candle", "Price Strength Index", "Relative Volume Strength Index", "Stochastic Momentum Index", "myStrategy"], group="Display Settings")
-preset = input.string("Custom", "Watchlist", options = ["Custom", "SP100 AAPL-CSCO", "SP100 DHR-MCD", "SP100 MET-TXN", "Forex", "Cryptos", "Sectors/Commodities"], group="Display Settings")
+preset = input.string("Custom", "Watchlist", options = ["Custom", "SP100 AAPL-CSCO", "SP100 DHR-MCD", "SP100 MET-TXN", "Forex", "Crypto", "Sectors/Commodities"], group="Display Settings")
 showLabels = input.bool(true, 'Show Symbol Labels', group="Display Settings")
-showBuyShapes = input.bool(true, 'Show Symbol Entries', group="Display Settings")
-showSellShapes = input.bool(true, 'Show Symbol Exits', group="Display Settings")
+showBuyShapes = input.bool(true, 'Show Scanner Longs', group="Display Settings")
+showSellShapes = input.bool(true, 'Show Scanner Shorts', group="Display Settings")
 showHLines = input.bool(true, 'Show Horizontal Lines', group="Display Settings")
-showBuyCandles = input.bool(false, 'Show Candle Entries', group="Display Settings")
-showSellCandles = input.bool(false, 'Show Candle Exits', group="Display Settings")
-bColor = input.color(color.new(#00FF00, 0), 'Candle Entry Color', group="Display Settings")
-sColor = input.color(color.new(#FF0000, 0), 'Candle Exist Color', group="Display Settings")
+showBuyCandles = input.bool(false, 'Show Long Candle Markers', group="Display Settings")
+showSellCandles = input.bool(false, 'Show Short Candle Markers', group="Display Settings")
+bColor = input.color(color.new(#00FF00, 0), 'Long Marker Color', group="Display Settings")
+sColor = input.color(color.new(#FF0000, 0), 'Short Marker Color', group="Display Settings")
 
 sendList = input.bool(false, 'Send Buy/Sell List', group='Alert Settings')
-sendIndividual = input.bool(false, 'Send Individual Alerts', group='Alert Settings')
-orderType = input.string('Limit', 'Order Type', options=['Limit', 'Market'], group='Alert Settings')
-percentStake = input.float(0, '% of Account Balance', group='Alert Settings')
-targetProfit = input.float(0, 'Target Profit %', group='Alert Settings')
-stopLoss = input.float(0, 'Stop Loss %', group='Alert Settings')
+sendLong = input.bool(false, 'Send Individual Long Alerts', group='Alert Settings')
+sendShort = input.bool(false, 'Send Individual Short Alerts', group='Alert Settings')
+
+longMessage = input.text_area(defval = "\"side\" : \"long\", \"orderType\" : \"market\", \"percentStake\" : \"2\", \"targetProfit\" : \"5\", \"stopLoss\" : \"1\"", title = " ...................................Long Alert.................................. .....................Each Alert includes ticker and last price..................... { \"ticker\" : \"[tickerID]\", \"last\" : \"[lastPrice]\", + message + }", group='Alert Settings')
+shortMessage = input.text_area(defval = "\"side\" : \"short\", \"orderType\" : \"market\", \"percentStake\" : \"2\", \"targetProfit\" : \"5\", \"stopLoss\" : \"1\"", title = " ...................................Short Alert................................. .....................Each Alert includes ticker and last price..................... { \"ticker\" : \"[tickerID]\", \"last\" : \"[lastPrice]\", + message + }", group='Alert Settings')
 
 sym1 = syminfo.ticker
 sym2 = input("GOOG", "Sym2", group="Custom Watchlist")
@@ -155,7 +155,7 @@ if(preset == "SP100 MET-TXN")
     sym29 := "TSLA"
     sym30 := "TXN"
     
-if(preset == "Cryptos")
+if(preset == "Crypto")
     sym2 := "BTCUSDT"
     sym3 := "ETHUSDT"
     sym4 := "XMRUSDT"
@@ -402,238 +402,6 @@ myStrategy(_src, _myStrategy) =>
 [ss29, bCondition29, sCondition29] = request.security(sym29, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
 
 [ss30, bCondition30, sCondition30] = request.security(sym30, timeframe, myStrategy(close, myStrategy), barmerge.gaps_on, barmerge.lookahead_on)
-
-// draw symbol horizontal lines
-// please note that hline() methods cannot be used within an if statement, but can contain an if statement
-hline((showHLines == true) ? 145 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 140 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 135 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 130 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 125 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 120 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 115 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 110 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 105 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 100 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 95 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 90 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 85 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 80 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 75 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 70 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 65 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 60 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 55 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 50 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 45 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 40 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 35 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 30 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 25 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 20 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 15 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 10 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 5 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
-hline((showHLines == true) ? 0 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
-
-// plot symbol labels
-if(showLabels == true)
-    label1 = label.new(bar_index+5, 145, text=sym1, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label1[1])
-    label2 = label.new(bar_index+5, 140, text=sym2, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label2[1])
-    label3 = label.new(bar_index+5, 135, text=sym3, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label3[1])
-    label4 = label.new(bar_index+5, 130, text=sym4, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label4[1])
-    label5 = label.new(bar_index+5, 125, text=sym5, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label5[1])
-    label6 = label.new(bar_index+5, 120, text=sym6, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label6[1])
-    label7 = label.new(bar_index+5, 115, text=sym7, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label7[1])
-    label8 = label.new(bar_index+5, 110, text=sym8, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label8[1])
-    label9 = label.new(bar_index+5, 105, text=sym9, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label9[1])
-    label10 = label.new(bar_index+5, 100, text=sym10, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label10[1])
-    label11 = label.new(bar_index+5, 95, text=sym11, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label11[1])
-    label12 = label.new(bar_index+5, 90, text=sym12, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label12[1])
-    label13 = label.new(bar_index+5, 85, text=sym13, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label13[1])
-    label14 = label.new(bar_index+5, 80, text=sym14, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label14[1])
-    label15 = label.new(bar_index+5, 75, text=sym15, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label15[1])
-    label16 = label.new(bar_index+5, 70, text=sym16, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label16[1])
-    label17 = label.new(bar_index+5, 65, text=sym17, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label17[1])
-    label18 = label.new(bar_index+5, 60, text=sym18, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label18[1])
-    label19 = label.new(bar_index+5, 55, text=sym19, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label19[1])
-    label20 = label.new(bar_index+5, 50, text=sym20, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label20[1])
-    label21 = label.new(bar_index+5, 45, text=sym21, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label21[1])
-    label22 = label.new(bar_index+5, 40, text=sym22, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label22[1])
-    label23 = label.new(bar_index+5, 35, text=sym23, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label23[1])
-    label24 = label.new(bar_index+5, 30, text=sym24, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label24[1])
-    label25 = label.new(bar_index+5, 25, text=sym25, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label25[1])
-    label26 = label.new(bar_index+5, 20, text=sym26, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label26[1])
-    label27 = label.new(bar_index+5, 15, text=sym27, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label27[1])
-    label28 = label.new(bar_index+5, 10, text=sym28, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label28[1])
-    label29 = label.new(bar_index+5, 5, text=sym29, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label29[1])
-    label30 = label.new(bar_index+5, 0, text=sym30, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
-    label.delete(label30[1])
-
-// plot shape entry markers
-// please note that plot() methods cannot be used within an if statement, but can contain an if statement
-plotshape((showBuyShapes == true) ? (bCondition1*145) : na, title="Buy Sym1", style=shape.circle,
-                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition2*140) : na, title="Buy Sym2", style=shape.circle,
-                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition3*135) : na, title="Buy Sym3", style=shape.circle,
-                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition4*130) : na, title="Buy Sym4", style=shape.circle,
-                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition5*125) : na, title="Buy Sym5", style=shape.circle,
-                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition6*120) : na, title="Buy Sym6", style=shape.circle,
-                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition7*115) : na, title="Buy Sym7", style=shape.circle,
-                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition8*110) : na, title="Buy Sym8", style=shape.circle,
-                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition9*105) : na, title="Buy Sym9", style=shape.circle,
-                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition10*100) : na, title="Buy Sym10", style=shape.circle,
-                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition11*95) : na, title="Buy Sym11", style=shape.circle,
-                 location=location.absolute, color=color.new(color.red, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition12*90) : na, title="Buy Sym12", style=shape.circle,
-                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition13*85) : na, title="Buy Sym13", style=shape.circle,
-                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition14*80) : na, title="Buy Sym14", style=shape.circle,
-                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition15*75) : na, title="Buy Sym15", style=shape.circle,
-                 location=location.absolute, color=color.new(color.green, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition16*70) : na, title="Buy Sym16", style=shape.circle,
-                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition17*65) : na, title="Buy Sym17", style=shape.circle,
-                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition18*60) : na, title="Buy Sym18", style=shape.circle,
-                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition19*55) : na, title="Buy Sym19", style=shape.circle,
-                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition20*50) : na, title="Buy Sym20", style=shape.circle,
-                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition21*45) : na, title="Buy Sym21", style=shape.circle,
-                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition22*40) : na, title="Buy Sym22", style=shape.circle,
-                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition23*35) : na, title="Buy Sym23", style=shape.circle,
-                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition24*30) : na, title="Buy Sym24", style=shape.circle,
-                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition25*25) : na, title="Buy Sym25", style=shape.circle,
-                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition26*20) : na, title="Buy Sym26", style=shape.circle,
-                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition27*15) : na, title="Buy Sym27", style=shape.circle,
-                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition28*10) : na, title="Buy Sym28", style=shape.circle,
-                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showBuyShapes == true) ? (bCondition29*5) : na, title="Buy Sym29", style=shape.circle,
-                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showBuyShapes == true) ? (bCondition30*0) : na, title="Buy Sym30", style=shape.circle,
-                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)             
-
-// plot shape exit markers
-// please note that plot() methods cannot be used within an if statement, but can contain an if statement
-plotshape((showSellShapes == true) ? (sCondition1*145) : na, title="Sell Sym1", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition2*140) : na, title="Sell Sym2", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition3*135) : na, title="Sell Sym3", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition4*130) : na, title="Sell Sym4", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition5*125) : na, title="Sell Sym5", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition6*120) : na, title="Sell Sym6", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition7*115) : na, title="Sell Sym7", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition8*110) : na, title="Sell Sym8", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition9*105) : na, title="Sell Sym9", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition10*100) : na, title="Sell Sym10", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition11*95) : na, title="Sell Sym11", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.red, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition12*90) : na, title="Sell Sym12", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition13*85) : na, title="Sell Sym13", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition14*80) : na, title="Sell Sym14", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition15*75) : na, title="Sell Sym15", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.green, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition16*70) : na, title="Sell Sym16", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition17*65) : na, title="Sell Sym17", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition18*60) : na, title="Sell Sym18", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition19*55) : na, title="Sell Sym19", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition20*50) : na, title="Sell Sym20", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition21*45) : na, title="Sell Sym21", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition22*40) : na, title="Sell Sym22", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition23*35) : na, title="Sell Sym23", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition24*30) : na, title="Sell Sym24", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition25*25) : na, title="Sell Sym25", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition26*20) : na, title="Sell Sym26", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition27*15) : na, title="Sell Sym27", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition28*10) : na, title="Sell Sym28", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
-plotshape((showSellShapes == true) ? (sCondition29*5) : na, title="Sell Sym29", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
-plotshape((showSellShapes == true) ? (sCondition30*0) : na, title="Sell Sym30", style=shape.xcross,
-                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
-           
-
-// plot candle entry/exit symbols
-bColor := (showBuyCandles == true) ? color.new(bColor, 0) : color.new(bColor, 100)
-plotchar(bCondition1, "Candle Entry", "B", location = location.belowbar, color=bColor, offset = 0, size = size.tiny, display = (showBuyCandles == true) ? display.all : display.none)
-
-sColor := (showSellCandles == true) ? color.new(sColor, 0) : color.new(sColor, 100)
-plotchar(sCondition1, "Candle Exit", "S", location = location.abovebar, color=sColor, offset = 0, size = size.tiny, display = (showSellCandles == true) ? display.all : display.none)
-    
-
 // send group list alerts
 // builds an array of symbol strings that are concatenated with a for loop into the alert message
 // if pine script had a dictionary object, I would loop through that instead
@@ -775,190 +543,382 @@ if(sendList == true)
     alert(message, alert.freq_once_per_bar_close)
     array.clear(report)
 
-// send individual alerts
+// 
+
+//send individual alerts
 // creates a JSON message to be sent to an execution server
-// example
-// {
-//  "symbol" : "AAPL",     // asset trading symbol
-//  "side" : "long",       // direction of the trade, "long" or "short"
-//  "orderType" : "Limit", // Limit or Market
-//  "percentStake" : 2,    // set position size at 2% of account balance
-//  "limitPrice" : 150.60, // set price of limit order, default is close price
-//  "targetProfit" : 5,    // set position exit on 5% profit
-//  "stopLoss" : 1         // set position exit on 1% loss
-// }
-if(sendIndividual == true)
+
+longMessage(sym, ss) =>
+    final = "{ \"symbol\" : \""+str.tostring(sym)+"\", \"lastPrice\" : \"" + str.tostring(ss) + "\", " + longMessage
+    if(str.endswith(final, ","))
+        final := str.substring(final, 0, str.length(final)-2) + " }"
+    final+ " }"
+
+shortMessage(sym, ss) =>
+    final = "{ \"symbol\" : \""+str.tostring(sym)+"\", \"lastPrice\" : \"" + str.tostring(ss) + "\", " + shortMessage
+    if(str.endswith(final, ","))
+        final := str.substring(final, 0, str.length(final)-2)
+    final+ " }"
+
+if(sendLong == true)
     if(bCondition1 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym1)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss1)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym1, ss1), alert.freq_once_per_bar_close)
     if(bCondition2 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym2)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss2)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym2, ss2), alert.freq_once_per_bar_close)
     if(bCondition3 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym3)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss3)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym3, ss3), alert.freq_once_per_bar_close)
     if(bCondition4 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym4)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss4)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym4, ss4), alert.freq_once_per_bar_close)
     if(bCondition5 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym5)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss5)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym5, ss5), alert.freq_once_per_bar_close)
     if(bCondition6 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym6)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss6)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym6, ss6), alert.freq_once_per_bar_close)
     if(bCondition7 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym7)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss7)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym7, ss7), alert.freq_once_per_bar_close)
     if(bCondition8 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym8)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss8)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym8, ss8), alert.freq_once_per_bar_close)
     if(bCondition9 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym9)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss9)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym9, ss9), alert.freq_once_per_bar_close)
     if(bCondition10 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym10)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss10)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym10, ss10), alert.freq_once_per_bar_close)
     if(bCondition11 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym11)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss11)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym11, ss11), alert.freq_once_per_bar_close)
     if(bCondition12 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym12)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss12)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym12, ss12), alert.freq_once_per_bar_close)
     if(bCondition13 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym13)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss13)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym13, ss13), alert.freq_once_per_bar_close)
     if(bCondition14 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym14)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss14)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym14, ss14), alert.freq_once_per_bar_close)
     if(bCondition15 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym15)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss15)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym15, ss15), alert.freq_once_per_bar_close)
     if(bCondition16 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym16)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss16)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym16, ss16), alert.freq_once_per_bar_close)
     if(bCondition17 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym17)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss17)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym17, ss17), alert.freq_once_per_bar_close)
     if(bCondition18 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym18)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss18)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym18, ss18), alert.freq_once_per_bar_close)
     if(bCondition19 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym19)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss19)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym19, ss19), alert.freq_once_per_bar_close)
     if(bCondition20 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym20)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss20)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym20, ss20), alert.freq_once_per_bar_close)
     if(bCondition21 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym21)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss21)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym21, ss21), alert.freq_once_per_bar_close)
     if(bCondition22 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym22)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss22)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym22, ss22), alert.freq_once_per_bar_close)
     if(bCondition23 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym23)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss23)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym23, ss23), alert.freq_once_per_bar_close)
     if(bCondition24 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym24)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss24)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym24, ss24), alert.freq_once_per_bar_close)
     if(bCondition25 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym25)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss25)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym25, ss25), alert.freq_once_per_bar_close)
     if(bCondition26 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym26)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss26)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym26, ss26), alert.freq_once_per_bar_close)
     if(bCondition27 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym27)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss27)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym27, ss27), alert.freq_once_per_bar_close)
     if(bCondition28 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym28)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss28)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym28, ss28), alert.freq_once_per_bar_close)
     if(bCondition29 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym29)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss29)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym29, ss29), alert.freq_once_per_bar_close)
     if(bCondition30 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym30)+"\", \"side\" : \"long\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss30)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(longMessage(sym30, ss30), alert.freq_once_per_bar_close)
 
-if(sendIndividual == true)
+if(sendShort == true)
     if(sCondition1 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym1)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss1)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym1, ss1), alert.freq_once_per_bar_close)
     if(sCondition2 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym2)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss2)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym2, ss2), alert.freq_once_per_bar_close)
     if(sCondition3 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym3)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss3)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym3, ss3), alert.freq_once_per_bar_close)
     if(sCondition4 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym4)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss4)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym4, ss4), alert.freq_once_per_bar_close)
     if(sCondition5 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym5)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss5)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym5, ss5), alert.freq_once_per_bar_close)
     if(sCondition6 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym6)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss6)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym6, ss6), alert.freq_once_per_bar_close)
     if(sCondition7 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym7)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss7)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym7, ss7), alert.freq_once_per_bar_close)
     if(sCondition8 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym8)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss8)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym8, ss8), alert.freq_once_per_bar_close)
     if(sCondition9 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym9)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss9)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym9, ss9), alert.freq_once_per_bar_close)
     if(sCondition10 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym10)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss10)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym10, ss10), alert.freq_once_per_bar_close)
     if(sCondition11 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym11)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss11)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym11, ss11), alert.freq_once_per_bar_close)
     if(sCondition12 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym12)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss12)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym12, ss12), alert.freq_once_per_bar_close)
     if(sCondition13 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym13)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss13)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym13, ss13), alert.freq_once_per_bar_close)
     if(sCondition14 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym14)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss14)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym14, ss14), alert.freq_once_per_bar_close)
     if(sCondition15 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym15)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss15)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym15, ss15), alert.freq_once_per_bar_close)
     if(sCondition16 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym16)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss16)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym16, ss16), alert.freq_once_per_bar_close)
     if(sCondition17 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym17)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss17)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym17, ss17), alert.freq_once_per_bar_close)
     if(sCondition18 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym18)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss18)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym18, ss18), alert.freq_once_per_bar_close)
     if(sCondition19 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym19)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss19)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym19, ss19), alert.freq_once_per_bar_close)
     if(sCondition20 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym20)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss20)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym20, ss20), alert.freq_once_per_bar_close)
     if(sCondition21 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym21)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss21)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym21, ss21), alert.freq_once_per_bar_close)
     if(sCondition22 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym22)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss22)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym22, ss22), alert.freq_once_per_bar_close)
     if(sCondition23 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym23)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss23)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym23, ss23), alert.freq_once_per_bar_close)
     if(sCondition24 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym24)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss24)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym24, ss24), alert.freq_once_per_bar_close)
     if(sCondition25 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym25)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss25)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym25, ss25), alert.freq_once_per_bar_close)
     if(sCondition26 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym26)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss26)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym26, ss26), alert.freq_once_per_bar_close)
     if(sCondition27 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym27)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss27)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym27, ss27), alert.freq_once_per_bar_close)
     if(sCondition28 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym28)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss28)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym28, ss28), alert.freq_once_per_bar_close)
     if(sCondition29 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym29)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss29)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym29, ss29), alert.freq_once_per_bar_close)
     if(sCondition30 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym30)+"\", \"side\" : \"short\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss30)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+        alert(shortMessage(sym30, ss30), alert.freq_once_per_bar_close)
 
-        alert("{ \"symbol\" : \""+str.tostring(sym5)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss5)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition6 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym6)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss6)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition7 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym7)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss7)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition8 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym8)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss8)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition9 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym9)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss9)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition10 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym10)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss10)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition11 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym11)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss11)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition12 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym12)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss12)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition13 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym13)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss13)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition14 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym14)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss14)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition15 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym15)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss15)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition16 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym16)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss16)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition17 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym17)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss17)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition18 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym18)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss18)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition19 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym19)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss19)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition20 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym20)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss20)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition21 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym21)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss21)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition22 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym22)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss22)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition23 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym23)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss23)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition24 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym24)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss24)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition25 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym25)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss25)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition26 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym26)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss26)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition27 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym27)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss27)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition28 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym28)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss28)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition29 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym29)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss29)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
-    if(sCondition30 == 1)
-        alert("{ \"symbol\" : \""+str.tostring(sym30)+"\", \"orderType\" : \""+str.tostring(orderType)+"\", \"percentStake\" : "+str.tostring(percentStake)+", \"limitPrice\" : "+str.tostring(ss30)+", \"targetProfit\" : "+str.tostring(targetProfit)+", \"stopLoss\" : "+str.tostring(stopLoss)+" }", alert.freq_once_per_bar_close)
+
+//
+
+
+//draw symbol horizontal lines
+// please note that hline() methods cannot be used within an if statement, but can contain an if statement
+hline((showHLines == true) ? 145 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 140 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 135 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 130 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 125 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 120 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 115 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 110 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 105 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 100 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 95 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 90 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 85 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 80 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 75 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 70 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 65 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 60 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 55 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 50 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 45 : na, color=color.new(color.red, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 40 : na, color=color.new(color.orange, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 35 : na, color=color.new(color.yellow, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 30 : na, color=color.new(color.lime, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 25 : na, color=color.new(color.green, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 20 : na, color=color.new(color.teal, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 15 : na, color=color.new(color.blue, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 10 : na, color=color.new(color.fuchsia, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 5 : na, color=color.new(color.purple, 25), linestyle = hline.style_dotted)
+hline((showHLines == true) ? 0 : na, color=color.new(color.maroon, 25), linestyle = hline.style_dotted)
+
+// plot symbol labels
+if(showLabels == true)
+    label1 = label.new(bar_index+5, 145, text=sym1, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label1[1])
+    label2 = label.new(bar_index+5, 140, text=sym2, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label2[1])
+    label3 = label.new(bar_index+5, 135, text=sym3, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label3[1])
+    label4 = label.new(bar_index+5, 130, text=sym4, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label4[1])
+    label5 = label.new(bar_index+5, 125, text=sym5, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label5[1])
+    label6 = label.new(bar_index+5, 120, text=sym6, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label6[1])
+    label7 = label.new(bar_index+5, 115, text=sym7, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label7[1])
+    label8 = label.new(bar_index+5, 110, text=sym8, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label8[1])
+    label9 = label.new(bar_index+5, 105, text=sym9, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label9[1])
+    label10 = label.new(bar_index+5, 100, text=sym10, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label10[1])
+    label11 = label.new(bar_index+5, 95, text=sym11, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label11[1])
+    label12 = label.new(bar_index+5, 90, text=sym12, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label12[1])
+    label13 = label.new(bar_index+5, 85, text=sym13, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label13[1])
+    label14 = label.new(bar_index+5, 80, text=sym14, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label14[1])
+    label15 = label.new(bar_index+5, 75, text=sym15, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label15[1])
+    label16 = label.new(bar_index+5, 70, text=sym16, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label16[1])
+    label17 = label.new(bar_index+5, 65, text=sym17, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label17[1])
+    label18 = label.new(bar_index+5, 60, text=sym18, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label18[1])
+    label19 = label.new(bar_index+5, 55, text=sym19, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label19[1])
+    label20 = label.new(bar_index+5, 50, text=sym20, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label20[1])
+    label21 = label.new(bar_index+5, 45, text=sym21, style=label.style_label_left, textcolor=color.red, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label21[1])
+    label22 = label.new(bar_index+5, 40, text=sym22, style=label.style_label_left, textcolor=color.orange, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label22[1])
+    label23 = label.new(bar_index+5, 35, text=sym23, style=label.style_label_left, textcolor=color.yellow, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label23[1])
+    label24 = label.new(bar_index+5, 30, text=sym24, style=label.style_label_left, textcolor=color.lime, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label24[1])
+    label25 = label.new(bar_index+5, 25, text=sym25, style=label.style_label_left, textcolor=color.green, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label25[1])
+    label26 = label.new(bar_index+5, 20, text=sym26, style=label.style_label_left, textcolor=color.teal, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label26[1])
+    label27 = label.new(bar_index+5, 15, text=sym27, style=label.style_label_left, textcolor=color.blue, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label27[1])
+    label28 = label.new(bar_index+5, 10, text=sym28, style=label.style_label_left, textcolor=color.fuchsia, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label28[1])
+    label29 = label.new(bar_index+5, 5, text=sym29, style=label.style_label_left, textcolor=color.purple, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label29[1])
+    label30 = label.new(bar_index+5, 0, text=sym30, style=label.style_label_left, textcolor=color.maroon, size=size.normal, color=color.rgb(0, 0, 0, 100), xloc=xloc.bar_index, yloc=yloc.price)
+    label.delete(label30[1])
+
+// 
+// plot shape entry markers
+// please note that plot() methods cannot be used within an if statement, but can contain an if statement
+plotshape((showBuyShapes == true) ? (bCondition1*145) : na, title="Buy Sym1", style=shape.circle,
+                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition2*140) : na, title="Buy Sym2", style=shape.circle,
+                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition3*135) : na, title="Buy Sym3", style=shape.circle,
+                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition4*130) : na, title="Buy Sym4", style=shape.circle,
+                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition5*125) : na, title="Buy Sym5", style=shape.circle,
+                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition6*120) : na, title="Buy Sym6", style=shape.circle,
+                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition7*115) : na, title="Buy Sym7", style=shape.circle,
+                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition8*110) : na, title="Buy Sym8", style=shape.circle,
+                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition9*105) : na, title="Buy Sym9", style=shape.circle,
+                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition10*100) : na, title="Buy Sym10", style=shape.circle,
+                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition11*95) : na, title="Buy Sym11", style=shape.circle,
+                 location=location.absolute, color=color.new(color.red, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition12*90) : na, title="Buy Sym12", style=shape.circle,
+                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition13*85) : na, title="Buy Sym13", style=shape.circle,
+                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition14*80) : na, title="Buy Sym14", style=shape.circle,
+                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition15*75) : na, title="Buy Sym15", style=shape.circle,
+                 location=location.absolute, color=color.new(color.green, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition16*70) : na, title="Buy Sym16", style=shape.circle,
+                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition17*65) : na, title="Buy Sym17", style=shape.circle,
+                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition18*60) : na, title="Buy Sym18", style=shape.circle,
+                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition19*55) : na, title="Buy Sym19", style=shape.circle,
+                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition20*50) : na, title="Buy Sym20", style=shape.circle,
+                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition21*45) : na, title="Buy Sym21", style=shape.circle,
+                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition22*40) : na, title="Buy Sym22", style=shape.circle,
+                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition23*35) : na, title="Buy Sym23", style=shape.circle,
+                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition24*30) : na, title="Buy Sym24", style=shape.circle,
+                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition25*25) : na, title="Buy Sym25", style=shape.circle,
+                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition26*20) : na, title="Buy Sym26", style=shape.circle,
+                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition27*15) : na, title="Buy Sym27", style=shape.circle,
+                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition28*10) : na, title="Buy Sym28", style=shape.circle,
+                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
+plotshape((showBuyShapes == true) ? (bCondition29*5) : na, title="Buy Sym29", style=shape.circle,
+                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
+plotshape((showBuyShapes == true) ? (bCondition30*0) : na, title="Buy Sym30", style=shape.circle,
+                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)             
+
+// 
+//plot shape exit markers
+// please note that plot() methods cannot be used within an if statement, but can contain an if statement
+plotshape((showSellShapes == true) ? (sCondition1*145) : na, title="Sell Sym1", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition2*140) : na, title="Sell Sym2", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition3*135) : na, title="Sell Sym3", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition4*130) : na, title="Sell Sym4", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition5*125) : na, title="Sell Sym5", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition6*120) : na, title="Sell Sym6", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition7*115) : na, title="Sell Sym7", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition8*110) : na, title="Sell Sym8", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition9*105) : na, title="Sell Sym9", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition10*100) : na, title="Sell Sym10", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition11*95) : na, title="Sell Sym11", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.red, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition12*90) : na, title="Sell Sym12", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition13*85) : na, title="Sell Sym13", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition14*80) : na, title="Sell Sym14", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition15*75) : na, title="Sell Sym15", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.green, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition16*70) : na, title="Sell Sym16", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition17*65) : na, title="Sell Sym17", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition18*60) : na, title="Sell Sym18", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition19*55) : na, title="Sell Sym19", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition20*50) : na, title="Sell Sym20", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition21*45) : na, title="Sell Sym21", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.red, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition22*40) : na, title="Sell Sym22", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.orange, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition23*35) : na, title="Sell Sym23", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.yellow, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition24*30) : na, title="Sell Sym24", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.lime, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition25*25) : na, title="Sell Sym25", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.green, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition26*20) : na, title="Sell Sym26", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.teal, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition27*15) : na, title="Sell Sym27", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.blue, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition28*10) : na, title="Sell Sym28", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.fuchsia, 50), size=size.small)                 
+plotshape((showSellShapes == true) ? (sCondition29*5) : na, title="Sell Sym29", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.purple, 50), size=size.small)
+plotshape((showSellShapes == true) ? (sCondition30*0) : na, title="Sell Sym30", style=shape.xcross,
+                 location=location.absolute, color=color.new(color.maroon, 50), size=size.small)
+           
+
+// 
+
+// plot candle entry/exit symbols
+bColor := (showBuyCandles == true) ? color.new(bColor, 0) : color.new(bColor, 100)
+plotchar(bCondition1, "Candle Entry", "L", location = location.belowbar, color=bColor, offset = 0, size = size.tiny, display = (showBuyCandles == true) ? display.all : display.none)
+
+sColor := (showSellCandles == true) ? color.new(sColor, 0) : color.new(sColor, 100)
+plotchar(sCondition1, "Candle Exit", "S", location = location.abovebar, color=sColor, offset = 0, size = size.tiny, display = (showSellCandles == true) ? display.all : display.none)
+    
